@@ -1,5 +1,9 @@
 package com.profilizer.repository.document;
 
+import static com.profilizer.repository.validation.ValidationMessages.ANSWER_REQUIRED;
+import static com.profilizer.repository.validation.ValidationMessages.QUESTION_REQUIRED;
+import static com.profilizer.repository.validation.ValidationMessages.TEST_ID_REQUIRED;
+
 import java.util.Date;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -14,13 +18,13 @@ public class Answer {
 	@Id
 	@Indexed
 	private String id;
-	@NotBlank
+	@NotBlank(message = QUESTION_REQUIRED)
 	private String question;
-	@NotBlank
+	@NotBlank(message = ANSWER_REQUIRED)
 	private String answer;
 	@Field(value = "creation_date")
 	private Date creationDate;
-	@NotBlank
+	@NotBlank(message = TEST_ID_REQUIRED)
 	private String personalityTestId;
 
 	public String getId() {

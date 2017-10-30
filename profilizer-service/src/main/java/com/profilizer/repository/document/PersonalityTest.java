@@ -1,7 +1,10 @@
 package com.profilizer.repository.document;
 
+import static com.profilizer.repository.validation.ValidationMessages.OWNER_REQUIRED;
+
 import java.util.Date;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,6 +16,7 @@ public class PersonalityTest {
 	@Id
 	@Indexed
 	private String id;
+	@NotBlank(message = OWNER_REQUIRED)
 	private String owner;
 	@Field(value = "percentage_completion")
 	private int percentageCompletion;
