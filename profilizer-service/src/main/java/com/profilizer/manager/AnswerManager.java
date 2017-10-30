@@ -19,18 +19,14 @@ public class AnswerManager {
 		return repository.findByPersonalityTestId(personalityTestId);
 	}
 	
-	public Answer createAnswer(String question, String answer, String personalityTestId) {
-		Answer answerDocument = new Answer();
-		answerDocument.setQuestion(question);
-		answerDocument.setAnswer(answer);
-		answerDocument.setPersonalityTestId(personalityTestId);
-		answerDocument.setCreationDate(new Date());
-		return repository.save(answerDocument);
+	public Answer createAnswer(Answer answer) {
+		answer.setCreationDate(new Date());
+		return repository.save(answer);
 	}
 	
-	public Answer updateAnswer(String answerId, String answer) {
-		Answer answerDocument = repository.findOne(answerId);
-		answerDocument.setAnswer(answer);
-		return repository.save(answerDocument);
+	public Answer updateAnswer(Answer answer) {
+		Answer dbAnswer = repository.findOne(answer.getId());
+		dbAnswer.setAnswer(answer.getAnswer());
+		return repository.save(dbAnswer);
 	}
 }

@@ -64,42 +64,43 @@ public class AnswerManagerTest {
 	@Test
 	public void testCreateAnswer() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
-		Answer answer = this.answerManager.createAnswer(QUESTION, ANSWER, PERSONALITY_TEST_ID);
+		Answer answer = this.answerManager.createAnswer(this.answer);
 		assertNotNull(answer);
 	}
 	
 	@Test
 	public void testCreateAnswerCheckQuestion() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
-		Answer answer = this.answerManager.createAnswer(QUESTION, ANSWER, PERSONALITY_TEST_ID);
+		Answer answer = this.answerManager.createAnswer(this.answer);
 		assertEquals(QUESTION, answer.getQuestion());
 	}
 	
 	@Test
 	public void testCreateAnswerCheckAnswer() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
-		Answer answer = this.answerManager.createAnswer(QUESTION, ANSWER, PERSONALITY_TEST_ID);
+		Answer answer = this.answerManager.createAnswer(this.answer);
 		assertEquals(ANSWER, answer.getAnswer());
 	}
 	
 	@Test
 	public void testCreateAnswerCheckPersonalityTest() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
-		Answer answer = this.answerManager.createAnswer(QUESTION, ANSWER, PERSONALITY_TEST_ID);
+		Answer answer = this.answerManager.createAnswer(this.answer);
 		assertEquals(PERSONALITY_TEST_ID, answer.getPersonalityTestId());
 	}
 	
 	@Test
 	public void testCreateAnswerCheckCreationDate() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
-		Answer answer = this.answerManager.createAnswer(QUESTION, ANSWER, PERSONALITY_TEST_ID);
+		Answer answer = this.answerManager.createAnswer(this.answer);
 		assertNotNull(answer.getCreationDate());
 	}
 	
 	@Test
 	public void testCreateAnswerWithQuestionNull() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
-		Answer answer = this.answerManager.createAnswer(null, ANSWER, PERSONALITY_TEST_ID);
+		this.answer.setQuestion(null);
+		Answer answer = this.answerManager.createAnswer(this.answer);
 		Set<ConstraintViolation<Answer>> violations = validator.validate(answer);
 		assertEquals(QUESTION_REQUIRED, TestUtils.getConstraintViolationMessage(violations));
 	}
@@ -107,7 +108,8 @@ public class AnswerManagerTest {
 	@Test
 	public void testCreateAnswerWithQuestionEmpty() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
-		Answer answer = this.answerManager.createAnswer("", ANSWER, PERSONALITY_TEST_ID);
+		this.answer.setQuestion("");
+		Answer answer = this.answerManager.createAnswer(this.answer);
 		Set<ConstraintViolation<Answer>> violations = validator.validate(answer);
 		assertEquals(QUESTION_REQUIRED, TestUtils.getConstraintViolationMessage(violations));
 	}
@@ -115,7 +117,8 @@ public class AnswerManagerTest {
 	@Test
 	public void testCreateAnswerWithAnswerNull() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
-		Answer answer = this.answerManager.createAnswer(QUESTION, null, PERSONALITY_TEST_ID);
+		this.answer.setAnswer(null);
+		Answer answer = this.answerManager.createAnswer(this.answer);
 		Set<ConstraintViolation<Answer>> violations = validator.validate(answer);
 		assertEquals(ANSWER_REQUIRED, TestUtils.getConstraintViolationMessage(violations));
 	}
@@ -123,23 +126,26 @@ public class AnswerManagerTest {
 	@Test
 	public void testCreateAnswerWithAnswerEmpty() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
-		Answer answer = this.answerManager.createAnswer(QUESTION, "", PERSONALITY_TEST_ID);
+		this.answer.setAnswer("");
+		Answer answer = this.answerManager.createAnswer(this.answer);
 		Set<ConstraintViolation<Answer>> violations = validator.validate(answer);
 		assertEquals(ANSWER_REQUIRED, TestUtils.getConstraintViolationMessage(violations));
 	}
 	
 	@Test
-	public void testCreateAnswerWithTestIdNull() {
+	public void testCreateAnswerWithPersonalityTestIdNull() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
-		Answer answer = this.answerManager.createAnswer(QUESTION, ANSWER, null);
+		this.answer.setPersonalityTestId(null);
+		Answer answer = this.answerManager.createAnswer(this.answer);
 		Set<ConstraintViolation<Answer>> violations = validator.validate(answer);
 		assertEquals(TEST_ID_REQUIRED, TestUtils.getConstraintViolationMessage(violations));
 	}
 	
 	@Test
-	public void testCreateAnswerWithTestIdEmpty() {
+	public void testCreateAnswerWithPersonalityTestIdEmpty() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
-		Answer answer = this.answerManager.createAnswer(QUESTION, ANSWER, "");
+		this.answer.setPersonalityTestId("");
+		Answer answer = this.answerManager.createAnswer(this.answer);
 		Set<ConstraintViolation<Answer>> violations = validator.validate(answer);
 		assertEquals(TEST_ID_REQUIRED, TestUtils.getConstraintViolationMessage(violations));
 	}
@@ -155,7 +161,8 @@ public class AnswerManagerTest {
 	public void testUpdateAnswer() {
 		given(this.answerRepository.findOne(ANSWER_ID)).willReturn(this.answer);
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
-		Answer answerUpdated = this.answerManager.updateAnswer(ANSWER_ID, ANSWER_UPDATE);
+		this.answer.setAnswer(ANSWER_UPDATE);
+		Answer answerUpdated = this.answerManager.updateAnswer(this.answer);
 		assertEquals(answerUpdated.getAnswer(), ANSWER_UPDATE);
 	}
 }

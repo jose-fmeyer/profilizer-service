@@ -19,16 +19,14 @@ public class PersonalityTestManager {
 		return repository.findAll();
 	}
 	
-	public PersonalityTest createPersonalityTest(String owner) {
-		PersonalityTest personalityTest = new PersonalityTest();
-		personalityTest.setOwner(owner);
+	public PersonalityTest createPersonalityTest(PersonalityTest personalityTest) {
 		personalityTest.setCreationDate(new Date());
 		return repository.save(personalityTest);
 	}
 	
-	public PersonalityTest updatePercentageCompletion(String personalityTestId, int percentageCompletion) {
-		PersonalityTest personalityTest = repository.findOne(personalityTestId);
-		personalityTest.setPercentageCompletion(percentageCompletion);
-		return repository.save(personalityTest);
+	public PersonalityTest updatePercentageCompletion(PersonalityTest personalityTest) {
+		PersonalityTest dbPersonalityTest = repository.findOne(personalityTest.getId());
+		dbPersonalityTest.setPercentageCompletion(personalityTest.getPercentageCompletion());
+		return repository.save(dbPersonalityTest);
 	}
 }

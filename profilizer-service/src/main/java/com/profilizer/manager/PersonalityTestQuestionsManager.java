@@ -15,7 +15,6 @@ public class PersonalityTestQuestionsManager {
 	private PersonalityTestQuestionsRepository repository;
 	
 	public List<PersonalityTestQuestions> getTestQuestions() {
-		List<PersonalityTestQuestions> test = repository.findAll();
-		return test;
+		return repository.findAll();
 	}
 }

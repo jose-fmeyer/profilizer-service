@@ -59,21 +59,21 @@ public class PersonalityTestManagerTest {
 	@Test
 	public void testCreatePersonalityTest() {
 		given(this.personalityTestRepository.save(any(PersonalityTest.class))).will(returnsFirstArg());
-		PersonalityTest personalityTest = this.personalityTestManager.createPersonalityTest(OWNER);
+		PersonalityTest personalityTest = this.personalityTestManager.createPersonalityTest(this.personalityTest);
 		assertNotNull(personalityTest);
 	}
 	
 	@Test
 	public void testCreatePersonalityTestCheckOwner() {
 		given(this.personalityTestRepository.save(any(PersonalityTest.class))).will(returnsFirstArg());
-		PersonalityTest personalityTest = this.personalityTestManager.createPersonalityTest(OWNER);
+		PersonalityTest personalityTest = this.personalityTestManager.createPersonalityTest(this.personalityTest);
 		assertEquals(OWNER, personalityTest.getOwner());
 	}
 	
 	@Test
 	public void testCreateAnswerWithOwnerNull() {
 		given(this.personalityTestRepository.save(any(PersonalityTest.class))).will(returnsFirstArg());
-		PersonalityTest personalityTest = this.personalityTestManager.createPersonalityTest(null);
+		PersonalityTest personalityTest = this.personalityTestManager.createPersonalityTest(new PersonalityTest());
 		Set<ConstraintViolation<PersonalityTest>> violations = validator.validate(personalityTest);
 		assertEquals(OWNER_REQUIRED, TestUtils.getConstraintViolationMessage(violations));
 	}
@@ -81,7 +81,8 @@ public class PersonalityTestManagerTest {
 	@Test
 	public void testCreateAnswerWithOwnerEmpty() {
 		given(this.personalityTestRepository.save(any(PersonalityTest.class))).will(returnsFirstArg());
-		PersonalityTest personalityTest = this.personalityTestManager.createPersonalityTest("");
+		this.personalityTest.setOwner("");
+		PersonalityTest personalityTest = this.personalityTestManager.createPersonalityTest(this.personalityTest);
 		Set<ConstraintViolation<PersonalityTest>> violations = validator.validate(personalityTest);
 		assertEquals(OWNER_REQUIRED, TestUtils.getConstraintViolationMessage(violations));
 	}
@@ -97,7 +98,8 @@ public class PersonalityTestManagerTest {
 	public void testUpdatePercentageCompletion() {
 		given(this.personalityTestRepository.findOne(PERSONALITY_TEST_ID)).willReturn(this.personalityTest);
 		given(this.personalityTestRepository.save(any(PersonalityTest.class))).will(returnsFirstArg());
-		PersonalityTest personalityTestUpdated = this.personalityTestManager.updatePercentageCompletion(PERSONALITY_TEST_ID, 20);
+		this.personalityTest.setPercentageCompletion(20);
+		PersonalityTest personalityTestUpdated = this.personalityTestManager.updatePercentageCompletion(this.personalityTest);
 		assertEquals(personalityTestUpdated.getPercentageCompletion(), 20);
 	}
 }
