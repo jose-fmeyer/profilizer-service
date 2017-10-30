@@ -39,7 +39,7 @@ import com.profilizer.util.TestUtils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class PersonalityTestControllerTest {
+public class PersonalityTestController {
 	
 	@Rule
 	public JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation("target/generated-snippets");
@@ -99,5 +99,13 @@ public class PersonalityTestControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(TestUtils.loadUpdatePersonalityTestContent()))
 				.andExpect(status().isOk()).andDo(document("update-personality-test"));
+	}
+	
+	@Test
+	public void testCreatePersonalityTestMissingRequiredField() throws Exception {
+		this.mockMvc.perform(post("/tests").with(this.basicAuth)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(TestUtils.loadAnswerMissingRequiredFieldContent()))
+				.andExpect(status().isBadRequest()).andDo(document("error-create-personality-test"));
 	}
 }

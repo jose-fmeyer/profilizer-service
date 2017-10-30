@@ -12,6 +12,10 @@ import org.springframework.core.NestedRuntimeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,6 +50,23 @@ public abstract class AbstractController {
 		else {
 			return handleException(HttpStatus.BAD_REQUEST, exception);
 		}
+    }
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Error> handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
+    	BindingResult bindingResult = exception.getBindingResult();
+    	
+    	List<String> messages = new ArrayList<String>();
+    	for (FieldError error : bindingResult.getFieldErrors()) {
+    		String message = String.format(MessageSourceUtils.getMessage(this.messageSource, MessageCodes.ARGUMENT_INVALID, MessageSourceUtils.getMessage(this.messageSource, error)));
+    		messages.add(message);
+    	}
+    	
+    	for (ObjectError error : bindingResult.getGlobalErrors()) {
+    		messages.add(MessageSourceUtils.getMessage(this.messageSource, error));
+    	}
+    	
+    	return handleError(HttpStatus.BAD_REQUEST, messages.toArray(new String[messages.size()]));
     }
     
     @ExceptionHandler(InvalidResponseException.class)

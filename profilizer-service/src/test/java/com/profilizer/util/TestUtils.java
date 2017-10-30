@@ -16,8 +16,11 @@ public class TestUtils {
 	
 	private static final String RESOURCE_ANSWER = "/answer.json";
 	private static final String RESOURCE_UPDATE_ANSWER = "/update_answer.json";
+	private static final String RESOURCE_ANSWER_MISSING_REQUIRED_FIELD = "/answer_missing_required_field.json";
+
 	private static final String RESOURCE_PERSONALITY_TEST = "/personality_test.json";
 	private static final String RESOURCE_UPDATE_PERSONALITY_TEST = "/update_personality_test.json";
+	private static final String RESOURCE_PERSONALITY_TEST_MISSING_REQ_FIELD = "/personality_test_missing_required_field.json";
 	
 	public static final String USERNAME = "user";
 	public static final String PASSWORD = "user123";
@@ -71,12 +74,20 @@ public class TestUtils {
 		return ResourceUtil.loadResource(RESOURCE_UPDATE_ANSWER);
 	}
 	
+	public static String loadAnswerMissingRequiredFieldContent() throws IOException {
+		return ResourceUtil.loadResource(RESOURCE_ANSWER_MISSING_REQUIRED_FIELD);
+	}
+	
 	public static String loadPersonalityTestContent() throws IOException {
 		return ResourceUtil.loadResource(RESOURCE_PERSONALITY_TEST);
 	}
 	
 	public static String loadUpdatePersonalityTestContent() throws IOException {
-		return ResourceUtil.loadResource(RESOURCE_PERSONALITY_TEST);
+		return ResourceUtil.loadResource(RESOURCE_UPDATE_PERSONALITY_TEST);
+	}
+	
+	public static String loadPersonalityTestMissingReqFieldContent() throws IOException {
+		return ResourceUtil.loadResource(RESOURCE_PERSONALITY_TEST_MISSING_REQ_FIELD);
 	}
 	
 	public static <T extends Object> String getConstraintViolationMessage(Set<ConstraintViolation<T>> violations) {

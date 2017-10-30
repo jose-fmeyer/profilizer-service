@@ -76,7 +76,7 @@ public class AnswerControllerTest {
 	}
 	
 	@Test
-	public void testGetTestQuestions() throws Exception {
+	public void testGetAnswersByTestId() throws Exception {
 		given(this.answerManager.getAnswersByTestId(PERSONALITY_TEST_ID)).willReturn(this.answers);
 		MockHttpServletResponse response = this.mockMvc.perform(get("/answers").with(this.basicAuth)
 				.param(PARAM_NAME_TEST_ID, PERSONALITY_TEST_ID)
@@ -102,5 +102,13 @@ public class AnswerControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(TestUtils.loadUpdateAnswerContent()))
 				.andExpect(status().isOk()).andDo(document("update-answer"));
+	}
+	
+	@Test
+	public void testCreateAnswerMissingRequiredField() throws Exception {
+		this.mockMvc.perform(post("/answers").with(this.basicAuth)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(TestUtils.loadAnswerMissingRequiredFieldContent()))
+				.andExpect(status().isBadRequest()).andDo(document("error-create-answer"));
 	}
 }
