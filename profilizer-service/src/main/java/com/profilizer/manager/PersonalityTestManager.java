@@ -16,17 +16,17 @@ public class PersonalityTestManager {
 	private PersonalityTestRepository repository;
 	
 	public List<PersonalityTest> getPersonalityTests() {
-		return repository.findAll();
+		return repository.findAllByOrderByCreationDateDesc();
 	}
 	
-	public PersonalityTest createPersonalityTest(PersonalityTest personalityTest) {
-		personalityTest.setCreationDate(new Date());
-		return repository.save(personalityTest);
+	public PersonalityTest createPersonalityTest(PersonalityTest test) {
+		test.setCreationDate(new Date());
+		return repository.save(test);
 	}
 	
-	public PersonalityTest updatePercentageCompletion(PersonalityTest personalityTest) {
-		PersonalityTest dbPersonalityTest = repository.findOne(personalityTest.getId());
-		dbPersonalityTest.setPercentageCompletion(personalityTest.getPercentageCompletion());
+	public PersonalityTest updatePercentageCompletion(PersonalityTest test) {
+		PersonalityTest dbPersonalityTest = repository.findOne(test.getId());
+		dbPersonalityTest.setPercentageCompletion(test.getPercentageCompletion());
 		return repository.save(dbPersonalityTest);
 	}
 }

@@ -54,7 +54,7 @@ public class PersonalityTestQuestionsControllerTest {
 	
 	private MockMvc mockMvc;
 	
-	private List<PersonalityTestQuestions> personalityTestQuestions;
+	private List<PersonalityTestQuestions> testQuestions;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -64,12 +64,12 @@ public class PersonalityTestQuestionsControllerTest {
 				.build();
 		
 		this.basicAuth = authenticationHelper.basicAuth(USERNAME, PASSWORD);
-		this.personalityTestQuestions = Arrays.asList(TestUtils.createPersonalityTestQuestions());
+		this.testQuestions = Arrays.asList(TestUtils.createPersonalityTestQuestions());
 	}
 	
 	@Test
 	public void testGetTestQuestions() throws Exception {
-		given(this.questionsManager.getTestQuestions()).willReturn(this.personalityTestQuestions);
+		given(this.questionsManager.getTestQuestions()).willReturn(this.testQuestions);
 		MockHttpServletResponse response = this.mockMvc.perform(get("/tests/questions").with(this.basicAuth)
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andDo(document("personality-test-questions"))

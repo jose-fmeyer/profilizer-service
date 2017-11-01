@@ -89,7 +89,7 @@ public class PersonalityTestManagerTest {
 	
 	@Test
 	public void testGetPersonalityTests() {
-		given(this.personalityTestRepository.findAll()).willReturn(this.personalityTests);
+		given(this.personalityTestRepository.findAllByOrderByCreationDateDesc()).willReturn(this.personalityTests);
 		List<PersonalityTest> personalityTests = this.personalityTestManager.getPersonalityTests();
 		assertSame(this.personalityTests, personalityTests);
 	}
