@@ -27,7 +27,7 @@ public class PersonalityTestController extends AbstractController {
 		return this.personalityTestManager.getPersonalityTests();
     }
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
 	@ResponseStatus(HttpStatus.CREATED)
     public PersonalityTest createPersonalityTest(@Valid @RequestBody PersonalityTest personalityTest) {
 		return this.personalityTestManager.createPersonalityTest(personalityTest);

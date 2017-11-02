@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,13 +36,14 @@ public class AnswerController extends AbstractController {
 		return this.answerManager.getAnswersByTestId(personalityTestId);
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
 	@ResponseStatus(HttpStatus.CREATED)
+	@ResponseBody
 	public Answer createAnswer(@Valid @RequestBody Answer answer) {
 		return this.answerManager.createAnswer(answer);
 	}
 
-	@RequestMapping(method = RequestMethod.PUT)
+	@RequestMapping(method = RequestMethod.PUT, produces = "application/json")
 	public Answer updateAnswer(@Valid @RequestBody Answer answer) {
 		return this.answerManager.updateAnswer(answer);
 	}

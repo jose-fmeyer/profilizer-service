@@ -1,0 +1,18 @@
+version: "3.1"
+volumes:
+  mongostorage:
+services:
+  mongodb:
+    container_name: mongodb
+    image: alexpunct/mongo:3.4
+    volumes: 
+      - mongostorage:/data/db
+    ports:
+      - "27017:27017"
+    environment:
+      MONGODB_ADMIN_USER: admin
+      MONGODB_ADMIN_PASS: admin
+      MONGODB_APPLICATION_DATABASE: profilizer
+      MONGODB_APPLICATION_USER: admin
+      MONGODB_APPLICATION_PASS: admin
+     

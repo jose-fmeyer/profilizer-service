@@ -1,10 +1,11 @@
 package com.profilizer.controller;
 
 import static com.profilizer.util.TestUtils.ANSWER_UPDATE;
-import static com.profilizer.util.TestUtils.PERSONALITY_TEST_ID;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
+import java.io.IOException;
 
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -36,7 +37,8 @@ public class AnswerControllerIT {
 
 	@Test
 	public void testCreateAnswer() throws Exception {
-		Answer answer = given().contentType(ContentType.JSON)
+		Answer answer = given()
+				.contentType(ContentType.JSON)
 				.auth().preemptive().basic(this.username, this.password)
 				.body(TestUtils.loadAnswerContent())
 				.when()
@@ -46,7 +48,8 @@ public class AnswerControllerIT {
 	
 	@Test
 	public void testUpdateAnswer() throws Exception {
-		Answer answer = given().contentType(ContentType.JSON)
+		Answer answer = given()
+				.contentType(ContentType.JSON)
 				.auth().preemptive().basic(this.username, this.password)
 				.body(TestUtils.loadAnswerContent())
 				.when()
@@ -54,7 +57,8 @@ public class AnswerControllerIT {
 		
 		answer.setAnswer(ANSWER_UPDATE);
 		
-		Answer answerUpdated = given().contentType(ContentType.JSON)
+		Answer answerUpdated = given()
+			.contentType(ContentType.JSON)
 			.auth().preemptive().basic(this.username, this.password)
 			.body(answer)
 			.when()
@@ -64,11 +68,17 @@ public class AnswerControllerIT {
 	}
 
 	@Test
-	public void testGetAnswersByTestId() {
+	public void testGetAnswersByTestId() throws IOException {
+		Answer answer = given().contentType(ContentType.JSON)
+				.auth().preemptive().basic(this.username, this.password)
+				.body(TestUtils.loadAnswerContent())
+				.when()
+				.post("/answers").as(Answer.class);
+		
 		given().contentType(ContentType.JSON)
 				.auth().preemptive().basic(this.username, this.password)
-				.param(AnswerController.PARAM_NAME_TEST_ID, PERSONALITY_TEST_ID)
-				.when().get("/answers/" + PERSONALITY_TEST_ID).then()
+				.param(AnswerController.PARAM_NAME_TEST_ID, answer.getPersonalityTestId())
+				.when().get("/answers/").then()
 				.statusCode(HttpStatus.OK.value());
 	}
 }
