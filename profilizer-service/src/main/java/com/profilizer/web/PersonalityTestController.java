@@ -35,6 +35,6 @@ public class PersonalityTestController extends AbstractController {
 	
 	@RequestMapping(method = RequestMethod.PUT)
     public PersonalityTest updatePercentageCompletion(@Valid @RequestBody PersonalityTest personalityTest) {
-		return this.personalityTestManager.updatePercentageCompletion(personalityTest);
+		return this.personalityTestManager.updatePersonalityTest(personalityTest);
 	}
 }

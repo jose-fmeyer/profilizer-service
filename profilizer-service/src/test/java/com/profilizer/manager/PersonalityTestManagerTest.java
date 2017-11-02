@@ -99,7 +99,7 @@ public class PersonalityTestManagerTest {
 		given(this.personalityTestRepository.findOne(PERSONALITY_TEST_ID)).willReturn(this.personalityTest);
 		given(this.personalityTestRepository.save(any(PersonalityTest.class))).will(returnsFirstArg());
 		this.personalityTest.setPercentageCompletion(20);
-		PersonalityTest personalityTestUpdated = this.personalityTestManager.updatePercentageCompletion(this.personalityTest);
+		PersonalityTest personalityTestUpdated = this.personalityTestManager.updatePersonalityTest(this.personalityTest);
 		assertEquals(personalityTestUpdated.getPercentageCompletion(), 20);
 	}
 }

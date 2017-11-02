@@ -35,6 +35,6 @@ public class PersonalityTestQuestionsControllerIT {
 				.auth().preemptive().basic(this.username, this.password)
 				.when().get("/tests/questions")
 				.then().statusCode(HttpStatus.OK.value())
-				.body(not(Matchers.emptyArray()));
+				.body(not(Matchers.notNullValue()));
 	}
 }

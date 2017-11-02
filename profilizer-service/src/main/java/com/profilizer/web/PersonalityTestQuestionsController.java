@@ -1,7 +1,5 @@
 package com.profilizer.web;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,12 +11,12 @@ import com.profilizer.repository.document.PersonalityTestQuestions;
 @RestController
 @RequestMapping("/tests")
 public class PersonalityTestQuestionsController extends AbstractController {
-	
+		
 	@Autowired
 	private PersonalityTestQuestionsManager questionsManager;
 	
 	@RequestMapping(path = "/questions", method = RequestMethod.GET)
-    public List<PersonalityTestQuestions> getTestQuestions() {
+    public PersonalityTestQuestions getTestQuestions() {
 		return this.questionsManager.getTestQuestions();
     }
 }

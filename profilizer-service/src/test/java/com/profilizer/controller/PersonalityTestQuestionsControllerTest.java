@@ -10,9 +10,6 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -54,7 +51,7 @@ public class PersonalityTestQuestionsControllerTest {
 	
 	private MockMvc mockMvc;
 	
-	private List<PersonalityTestQuestions> testQuestions;
+	private PersonalityTestQuestions testQuestions;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -64,7 +61,7 @@ public class PersonalityTestQuestionsControllerTest {
 				.build();
 		
 		this.basicAuth = authenticationHelper.basicAuth(USERNAME, PASSWORD);
-		this.testQuestions = Arrays.asList(TestUtils.createPersonalityTestQuestions());
+		this.testQuestions = TestUtils.createPersonalityTestQuestions();
 	}
 	
 	@Test

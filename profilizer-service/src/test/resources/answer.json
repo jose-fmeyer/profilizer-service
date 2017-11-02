@@ -1,5 +1,6 @@
 {
     "question": "What is your gender?",
     "answer": "male",
+    "category": "hard_fact",
     "personalityTestId": "abc345"
 }

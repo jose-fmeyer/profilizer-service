@@ -78,7 +78,7 @@ public class AnswerControllerTest {
 	@Test
 	public void testGetAnswersByTestId() throws Exception {
 		given(this.answerManager.getAnswersByTestId(PERSONALITY_TEST_ID)).willReturn(this.answers);
-		MockHttpServletResponse response = this.mockMvc.perform(get("/answers").with(this.basicAuth)
+		MockHttpServletResponse response = this.mockMvc.perform(get("/answers/" + PERSONALITY_TEST_ID).with(this.basicAuth)
 				.param(PARAM_NAME_TEST_ID, PERSONALITY_TEST_ID)
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andDo(document("personality-test-answers"))

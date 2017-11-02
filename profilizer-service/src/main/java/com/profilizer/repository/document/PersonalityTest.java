@@ -2,7 +2,9 @@ package com.profilizer.repository.document;
 
 import static com.profilizer.repository.validation.ValidationMessages.OWNER_REQUIRED;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
@@ -18,10 +20,14 @@ public class PersonalityTest {
 	private String id;
 	@NotBlank(message = OWNER_REQUIRED)
 	private String owner;
+	@Field(value = "number_of_questions")
+	private int numberOfQuestions;
 	@Field(value = "percentage_completion")
 	private int percentageCompletion;
 	@Field(value = "creation_date")
 	private Date creationDate;
+	@Field(value = "answers_id")
+	private List<String> answersId;
 
 	public String getId() {
 		return id;
@@ -39,6 +45,14 @@ public class PersonalityTest {
 		this.owner = owner;
 	}
 
+	public int getNumberOfQuestions() {
+		return numberOfQuestions;
+	}
+
+	public void setNumberOfQuestions(int numberOfQuestions) {
+		this.numberOfQuestions = numberOfQuestions;
+	}
+
 	public int getPercentageCompletion() {
 		return percentageCompletion;
 	}
@@ -53,5 +67,20 @@ public class PersonalityTest {
 
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public void addAnswersId(String answerId) {
+		if (answersId == null) {
+			answersId = new ArrayList<>(); 
+		}
+		answersId.add(answerId);
+	}
+	
+	public List<String> getAnswersId() {
+		return answersId;
+	}
+
+	public void setAnswersId(List<String> answersId) {
+		this.answersId = answersId;
 	}
 }

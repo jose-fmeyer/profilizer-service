@@ -37,7 +37,8 @@ public class TestUtils {
 		Answer answer = new Answer();
 		answer.setId(ANSWER_ID);
 		answer.setQuestion(QUESTION);
-		answer.setAnswer(ANSWER);
+		answer.setAnswer(QUESTION);
+		answer.setCategory(CATEGORY);
 		answer.setPersonalityTestId(PERSONALITY_TEST_ID);
 		answer.setCreationDate(new Date());
 		return answer;

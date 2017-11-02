@@ -34,6 +34,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.profilizer.repository.AnswerRepository;
 import com.profilizer.repository.document.Answer;
+import com.profilizer.repository.document.PersonalityTest;
 import com.profilizer.util.TestUtils;
 
 @RunWith(SpringRunner.class)
@@ -44,6 +45,12 @@ public class AnswerManagerTest {
 	
 	@MockBean
 	private AnswerRepository answerRepository;
+	
+	@MockBean
+	private PersonalityTestManager testManager;
+	
+	@MockBean
+	private PersonalityTestQuestionsManager testQuestionsManager;
 
 	@Autowired
 	private AnswerManager answerManager;
@@ -64,6 +71,11 @@ public class AnswerManagerTest {
 	@Test
 	public void testCreateAnswer() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
+		given(this.testManager.getPersonalityTest(any(String.class))).willReturn(TestUtils.createPersonalityTest());
+		given(this.testManager.updatePersonalityTest(any(PersonalityTest.class))).will(returnsFirstArg());
+		
+		given(this.testQuestionsManager.getTestQuestions()).willReturn(TestUtils.createPersonalityTestQuestions());
+		given(this.testQuestionsManager.updateQuestionWithTestId(any(String.class), any(String.class))).willReturn(TestUtils.createPersonalityTestQuestions());
 		Answer answer = this.answerManager.createAnswer(this.answer);
 		assertNotNull(answer);
 	}
@@ -71,6 +83,12 @@ public class AnswerManagerTest {
 	@Test
 	public void testCreateAnswerCheckQuestion() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
+		given(this.testManager.getPersonalityTest(any(String.class))).willReturn(TestUtils.createPersonalityTest());
+		given(this.testManager.updatePersonalityTest(any(PersonalityTest.class))).will(returnsFirstArg());
+		
+		given(this.testQuestionsManager.getTestQuestions()).willReturn(TestUtils.createPersonalityTestQuestions());
+		given(this.testQuestionsManager.updateQuestionWithTestId(any(String.class), any(String.class))).willReturn(TestUtils.createPersonalityTestQuestions());
+		
 		Answer answer = this.answerManager.createAnswer(this.answer);
 		assertEquals(QUESTION, answer.getQuestion());
 	}
@@ -78,6 +96,13 @@ public class AnswerManagerTest {
 	@Test
 	public void testCreateAnswerCheckAnswer() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
+		given(this.testManager.getPersonalityTest(any(String.class))).willReturn(TestUtils.createPersonalityTest());
+		given(this.testManager.updatePersonalityTest(any(PersonalityTest.class))).will(returnsFirstArg());
+		
+		given(this.testQuestionsManager.getTestQuestions()).willReturn(TestUtils.createPersonalityTestQuestions());
+		given(this.testQuestionsManager.updateQuestionWithTestId(any(String.class), any(String.class))).willReturn(TestUtils.createPersonalityTestQuestions());
+		
+		this.answer.setAnswer(ANSWER);
 		Answer answer = this.answerManager.createAnswer(this.answer);
 		assertEquals(ANSWER, answer.getAnswer());
 	}
@@ -85,6 +110,12 @@ public class AnswerManagerTest {
 	@Test
 	public void testCreateAnswerCheckPersonalityTest() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
+		given(this.testManager.getPersonalityTest(any(String.class))).willReturn(TestUtils.createPersonalityTest());
+		given(this.testManager.updatePersonalityTest(any(PersonalityTest.class))).will(returnsFirstArg());
+		
+		given(this.testQuestionsManager.getTestQuestions()).willReturn(TestUtils.createPersonalityTestQuestions());
+		given(this.testQuestionsManager.updateQuestionWithTestId(any(String.class), any(String.class))).willReturn(TestUtils.createPersonalityTestQuestions());
+		
 		Answer answer = this.answerManager.createAnswer(this.answer);
 		assertEquals(PERSONALITY_TEST_ID, answer.getPersonalityTestId());
 	}
@@ -92,6 +123,12 @@ public class AnswerManagerTest {
 	@Test
 	public void testCreateAnswerCheckCreationDate() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
+		given(this.testManager.getPersonalityTest(any(String.class))).willReturn(TestUtils.createPersonalityTest());
+		given(this.testManager.updatePersonalityTest(any(PersonalityTest.class))).will(returnsFirstArg());
+		
+		given(this.testQuestionsManager.getTestQuestions()).willReturn(TestUtils.createPersonalityTestQuestions());
+		given(this.testQuestionsManager.updateQuestionWithTestId(any(String.class), any(String.class))).willReturn(TestUtils.createPersonalityTestQuestions());
+		
 		Answer answer = this.answerManager.createAnswer(this.answer);
 		assertNotNull(answer.getCreationDate());
 	}
@@ -99,6 +136,12 @@ public class AnswerManagerTest {
 	@Test
 	public void testCreateAnswerWithQuestionNull() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
+		given(this.testManager.getPersonalityTest(any(String.class))).willReturn(TestUtils.createPersonalityTest());
+		given(this.testManager.updatePersonalityTest(any(PersonalityTest.class))).will(returnsFirstArg());
+		
+		given(this.testQuestionsManager.getTestQuestions()).willReturn(TestUtils.createPersonalityTestQuestions());
+		given(this.testQuestionsManager.updateQuestionWithTestId(any(String.class), any(String.class))).willReturn(TestUtils.createPersonalityTestQuestions());
+		
 		this.answer.setQuestion(null);
 		Answer answer = this.answerManager.createAnswer(this.answer);
 		Set<ConstraintViolation<Answer>> violations = validator.validate(answer);
@@ -108,6 +151,12 @@ public class AnswerManagerTest {
 	@Test
 	public void testCreateAnswerWithQuestionEmpty() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
+		given(this.testManager.getPersonalityTest(any(String.class))).willReturn(TestUtils.createPersonalityTest());
+		given(this.testManager.updatePersonalityTest(any(PersonalityTest.class))).will(returnsFirstArg());
+		
+		given(this.testQuestionsManager.getTestQuestions()).willReturn(TestUtils.createPersonalityTestQuestions());
+		given(this.testQuestionsManager.updateQuestionWithTestId(any(String.class), any(String.class))).willReturn(TestUtils.createPersonalityTestQuestions());
+		
 		this.answer.setQuestion("");
 		Answer answer = this.answerManager.createAnswer(this.answer);
 		Set<ConstraintViolation<Answer>> violations = validator.validate(answer);
@@ -117,6 +166,12 @@ public class AnswerManagerTest {
 	@Test
 	public void testCreateAnswerWithAnswerNull() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
+		given(this.testManager.getPersonalityTest(any(String.class))).willReturn(TestUtils.createPersonalityTest());
+		given(this.testManager.updatePersonalityTest(any(PersonalityTest.class))).will(returnsFirstArg());
+		
+		given(this.testQuestionsManager.getTestQuestions()).willReturn(TestUtils.createPersonalityTestQuestions());
+		given(this.testQuestionsManager.updateQuestionWithTestId(any(String.class), any(String.class))).willReturn(TestUtils.createPersonalityTestQuestions());
+		
 		this.answer.setAnswer(null);
 		Answer answer = this.answerManager.createAnswer(this.answer);
 		Set<ConstraintViolation<Answer>> violations = validator.validate(answer);
@@ -126,6 +181,12 @@ public class AnswerManagerTest {
 	@Test
 	public void testCreateAnswerWithAnswerEmpty() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
+		given(this.testManager.getPersonalityTest(any(String.class))).willReturn(TestUtils.createPersonalityTest());
+		given(this.testManager.updatePersonalityTest(any(PersonalityTest.class))).will(returnsFirstArg());
+		
+		given(this.testQuestionsManager.getTestQuestions()).willReturn(TestUtils.createPersonalityTestQuestions());
+		given(this.testQuestionsManager.updateQuestionWithTestId(any(String.class), any(String.class))).willReturn(TestUtils.createPersonalityTestQuestions());
+		
 		this.answer.setAnswer("");
 		Answer answer = this.answerManager.createAnswer(this.answer);
 		Set<ConstraintViolation<Answer>> violations = validator.validate(answer);
@@ -135,6 +196,12 @@ public class AnswerManagerTest {
 	@Test
 	public void testCreateAnswerWithPersonalityTestIdNull() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
+		given(this.testManager.getPersonalityTest(any(String.class))).willReturn(TestUtils.createPersonalityTest());
+		given(this.testManager.updatePersonalityTest(any(PersonalityTest.class))).will(returnsFirstArg());
+		
+		given(this.testQuestionsManager.getTestQuestions()).willReturn(TestUtils.createPersonalityTestQuestions());
+		given(this.testQuestionsManager.updateQuestionWithTestId(any(String.class), any(String.class))).willReturn(TestUtils.createPersonalityTestQuestions());
+		
 		this.answer.setPersonalityTestId(null);
 		Answer answer = this.answerManager.createAnswer(this.answer);
 		Set<ConstraintViolation<Answer>> violations = validator.validate(answer);
@@ -144,6 +211,12 @@ public class AnswerManagerTest {
 	@Test
 	public void testCreateAnswerWithPersonalityTestIdEmpty() {
 		given(this.answerRepository.save(any(Answer.class))).will(returnsFirstArg());
+		given(this.testManager.getPersonalityTest(any(String.class))).willReturn(TestUtils.createPersonalityTest());
+		given(this.testManager.updatePersonalityTest(any(PersonalityTest.class))).will(returnsFirstArg());
+		
+		given(this.testQuestionsManager.getTestQuestions()).willReturn(TestUtils.createPersonalityTestQuestions());
+		given(this.testQuestionsManager.updateQuestionWithTestId(any(String.class), any(String.class))).willReturn(TestUtils.createPersonalityTestQuestions());
+		
 		this.answer.setPersonalityTestId("");
 		Answer answer = this.answerManager.createAnswer(this.answer);
 		Set<ConstraintViolation<Answer>> violations = validator.validate(answer);

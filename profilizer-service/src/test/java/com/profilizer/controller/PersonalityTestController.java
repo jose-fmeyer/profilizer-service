@@ -94,7 +94,7 @@ public class PersonalityTestController {
 	
 	@Test
 	public void testUpdatePersonalityTest() throws Exception {
-		given(this.personalityTestManager.updatePercentageCompletion(any(PersonalityTest.class))).willReturn(this.personalityTest);
+		given(this.personalityTestManager.updatePersonalityTest(any(PersonalityTest.class))).willReturn(this.personalityTest);
 		this.mockMvc.perform(put("/tests").with(this.basicAuth)
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(TestUtils.loadUpdatePersonalityTestContent()))

@@ -68,7 +68,7 @@ public class AnswerControllerIT {
 		given().contentType(ContentType.JSON)
 				.auth().preemptive().basic(this.username, this.password)
 				.param(AnswerController.PARAM_NAME_TEST_ID, PERSONALITY_TEST_ID)
-				.when().get("/answers").then()
+				.when().get("/answers/" + PERSONALITY_TEST_ID).then()
 				.statusCode(HttpStatus.OK.value());
 	}
 }

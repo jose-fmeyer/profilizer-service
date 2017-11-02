@@ -19,14 +19,19 @@ public class PersonalityTestManager {
 		return repository.findAllByOrderByCreationDateDesc();
 	}
 	
+	public PersonalityTest getPersonalityTest(String id) {
+		return repository.findOne(id);
+	}
+	
 	public PersonalityTest createPersonalityTest(PersonalityTest test) {
 		test.setCreationDate(new Date());
 		return repository.save(test);
 	}
 	
-	public PersonalityTest updatePercentageCompletion(PersonalityTest test) {
+	public PersonalityTest updatePersonalityTest(PersonalityTest test) {
 		PersonalityTest dbPersonalityTest = repository.findOne(test.getId());
 		dbPersonalityTest.setPercentageCompletion(test.getPercentageCompletion());
+		dbPersonalityTest.setAnswersId(test.getAnswersId());
 		return repository.save(dbPersonalityTest);
 	}
 }

@@ -1,6 +1,7 @@
 package com.profilizer.repository.document;
 
 import static com.profilizer.repository.validation.ValidationMessages.ANSWER_REQUIRED;
+import static com.profilizer.repository.validation.ValidationMessages.CATEGORY_REQUIRED;
 import static com.profilizer.repository.validation.ValidationMessages.QUESTION_REQUIRED;
 import static com.profilizer.repository.validation.ValidationMessages.TEST_ID_REQUIRED;
 
@@ -20,6 +21,8 @@ public class Answer {
 	private String id;
 	@NotBlank(message = QUESTION_REQUIRED)
 	private String question;
+	@NotBlank(message = CATEGORY_REQUIRED)
+	private String category;
 	@NotBlank(message = ANSWER_REQUIRED)
 	private String answer;
 	@Field(value = "creation_date")
@@ -33,6 +36,14 @@ public class Answer {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public String getQuestion() {

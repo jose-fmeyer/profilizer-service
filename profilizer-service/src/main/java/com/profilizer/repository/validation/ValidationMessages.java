@@ -6,4 +6,6 @@ public class ValidationMessages {
 	public static final String QUESTION_REQUIRED = "Answer is a required field.";
 	public static final String TEST_ID_REQUIRED = "The test id is a required field.";
 	public static final String OWNER_REQUIRED = "Owner is a required field.";
+	public static final String CATEGORY_REQUIRED = "Category is a required field.";
+
 }
