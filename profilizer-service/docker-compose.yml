@@ -8,11 +8,26 @@ services:
     volumes: 
       - mongostorage:/data/db
     ports:
-      - "27017:27017"
+      - 0.0.0.0:27017:27017/tcp
     environment:
       MONGODB_ADMIN_USER: admin
       MONGODB_ADMIN_PASS: admin
       MONGODB_APPLICATION_DATABASE: profilizer
       MONGODB_APPLICATION_USER: admin
       MONGODB_APPLICATION_PASS: admin
+  profilizer:
+    container_name: profilizer
+    image: profilizer
+    ports:
+      - 0.0.0.0:8080:8080/tcp
+    depends_on:
+      - mongodb
+    environment:
+      - DATABASE_HOST=mongodb
+      - DATABASE_USER=admin
+      - DATABASE_PASSWORD=admin 
+      - DATABASE_NAME=profilizer
+      - DATABASE_PORT=27017
+
+  
      

@@ -23,6 +23,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<version.maven-failsafe-plugin>2.18.1</version.maven-failsafe-plugin>
+		<docker.image.name>profilizer</docker.image.name>
 	</properties>
 
 	<dependencies>
@@ -80,6 +81,23 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<configuration>
+					<skipDockerBuild>false</skipDockerBuild>
+					<imageName>${docker.image.name}</imageName>
+					<dockerDirectory>${basedir}/src/main/resources/docker</dockerDirectory>
+					<exposes>8080</exposes>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-failsafe-plugin</artifactId>
