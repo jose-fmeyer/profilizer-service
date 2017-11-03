@@ -23,7 +23,7 @@ import com.profilizer.web.AnswerController;
 import io.restassured.http.ContentType;
 
 @RunWith(SpringRunner.class)
-@TestPropertySource(value = "classpath:application.properties")
+@TestPropertySource(value = "classpath:application.yml")
 public class AnswerControllerIT {
 
 	@ClassRule
