@@ -25,4 +25,4 @@ And next to make the server goes live just execute:
  - docker-compose up
   
 # To execute the Unit and Integration tests just execute the command in the roor folder
- - mvn verify
+ - mvn verify (The integration tests are dependent of a server instance running to be executed)
