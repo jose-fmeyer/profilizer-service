@@ -7,7 +7,9 @@ The idea is to give a quiz experience to the user, going throghout different que
 
 # Server technologies
   - Spring boot
-  - Mongodb with docker
+  - Mongodb with 
+  - Docker
+  - Rest assured
   
 # To run the server you will need
   - Maven https://maven.apache.org/download.cgi
