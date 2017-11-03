@@ -20,7 +20,7 @@ import io.restassured.http.ContentType;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class PersonalityTestControllerTestIT {
+public class PersonalityTestControllerIT {
 	
 	@ClassRule
 	public static ITSetupRule itSetupRule = new ITSetupRule();

@@ -7,7 +7,7 @@ The idea is to give a quiz experience to the user, going throghout different que
 
 # Server technologies
   - Spring boot
-  - Mongodb with 
+  - Mongodb
   - Docker
   - Rest assured
   

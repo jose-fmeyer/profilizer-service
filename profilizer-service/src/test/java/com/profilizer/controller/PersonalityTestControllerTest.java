@@ -39,7 +39,7 @@ import com.profilizer.util.TestUtils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class PersonalityTestController {
+public class PersonalityTestControllerTest {
 	
 	@Rule
 	public JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation("target/generated-snippets");
