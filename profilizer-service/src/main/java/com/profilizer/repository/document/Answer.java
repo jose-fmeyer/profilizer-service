@@ -13,6 +13,12 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(content=Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown=true)
 @Document(collection = "personality_test_answers")
 public class Answer {
 

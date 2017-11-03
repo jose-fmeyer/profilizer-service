@@ -17,8 +17,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.profilizer.integration.ITSetupRule;
 import com.profilizer.repository.document.Answer;
+import com.profilizer.repository.document.PersonalityTest;
+import com.profilizer.util.SerializationUtils;
 import com.profilizer.util.TestUtils;
-import com.profilizer.web.AnswerController;
 
 import io.restassured.http.ContentType;
 
@@ -37,10 +38,19 @@ public class AnswerControllerIT {
 
 	@Test
 	public void testCreateAnswer() throws Exception {
+		PersonalityTest personalityTest = given().contentType(ContentType.JSON)
+				.auth().preemptive().basic(this.username, this.password)
+				.body(TestUtils.loadPersonalityTestContent())
+				.when()
+				.post("/tests").as(PersonalityTest.class);
+		
+		Answer answerBody = SerializationUtils.deserialize(TestUtils.loadAnswerContent(), Answer.class);
+		answerBody.setPersonalityTestId(personalityTest.getId());
+		
 		Answer answer = given()
 				.contentType(ContentType.JSON)
 				.auth().preemptive().basic(this.username, this.password)
-				.body(TestUtils.loadAnswerContent())
+				.body(answerBody)
 				.when()
 				.post("/answers").as(Answer.class);
 		assertNotNull(answer);
@@ -48,10 +58,19 @@ public class AnswerControllerIT {
 	
 	@Test
 	public void testUpdateAnswer() throws Exception {
+		PersonalityTest personalityTest = given().contentType(ContentType.JSON)
+				.auth().preemptive().basic(this.username, this.password)
+				.body(TestUtils.loadPersonalityTestContent())
+				.when()
+				.post("/tests").as(PersonalityTest.class);
+		
+		Answer answerBody = SerializationUtils.deserialize(TestUtils.loadAnswerContent(), Answer.class);
+		answerBody.setPersonalityTestId(personalityTest.getId());
+		
 		Answer answer = given()
 				.contentType(ContentType.JSON)
 				.auth().preemptive().basic(this.username, this.password)
-				.body(TestUtils.loadAnswerContent())
+				.body(answerBody)
 				.when()
 				.post("/answers").as(Answer.class);
 		
@@ -69,16 +88,25 @@ public class AnswerControllerIT {
 
 	@Test
 	public void testGetAnswersByTestId() throws IOException {
+		PersonalityTest personalityTest = given().contentType(ContentType.JSON)
+				.auth().preemptive().basic(this.username, this.password)
+				.body(TestUtils.loadPersonalityTestContent())
+				.when()
+				.post("/tests").as(PersonalityTest.class);
+		
+		Answer answerBody = SerializationUtils.deserialize(TestUtils.loadAnswerContent(), Answer.class);
+		answerBody.setPersonalityTestId(personalityTest.getId());
+		
 		Answer answer = given().contentType(ContentType.JSON)
 				.auth().preemptive().basic(this.username, this.password)
-				.body(TestUtils.loadAnswerContent())
+				.body(answerBody)
 				.when()
 				.post("/answers").as(Answer.class);
 		
 		given().contentType(ContentType.JSON)
 				.auth().preemptive().basic(this.username, this.password)
-				.param(AnswerController.PARAM_NAME_TEST_ID, answer.getPersonalityTestId())
-				.when().get("/answers/").then()
+				.pathParam("personalityTestId", answer.getPersonalityTestId())
+				.when().get("/answers/{personalityTestId}").then()
 				.statusCode(HttpStatus.OK.value());
 	}
 }

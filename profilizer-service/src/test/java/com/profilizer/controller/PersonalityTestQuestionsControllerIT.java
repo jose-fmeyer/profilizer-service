@@ -1,23 +1,22 @@
 package com.profilizer.controller;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertNotNull;
 
-import org.hamcrest.Matchers;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.profilizer.integration.ITSetupRule;
+import com.profilizer.repository.document.PersonalityTestQuestions;
 
 import io.restassured.http.ContentType;
 
 @RunWith(SpringRunner.class)
-@TestPropertySource(value = "classpath:application.yml")
+@SpringBootTest
 public class PersonalityTestQuestionsControllerIT {
 	
 	@ClassRule
@@ -31,10 +30,10 @@ public class PersonalityTestQuestionsControllerIT {
 	
 	@Test
 	public void testGetTestQuestions() {
-		given().contentType(ContentType.JSON)
+		PersonalityTestQuestions testQuestions = given().contentType(ContentType.JSON)
 				.auth().preemptive().basic(this.username, this.password)
 				.when().get("/tests/questions")
-				.then().statusCode(HttpStatus.OK.value())
-				.body(not(Matchers.notNullValue()));
+				.as(PersonalityTestQuestions.class);
+		assertNotNull(testQuestions);
 	}
 }
