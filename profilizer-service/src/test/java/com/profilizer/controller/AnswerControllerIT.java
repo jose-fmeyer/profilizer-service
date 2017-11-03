@@ -11,8 +11,8 @@ import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.profilizer.integration.ITSetupRule;
@@ -23,7 +23,7 @@ import com.profilizer.web.AnswerController;
 import io.restassured.http.ContentType;
 
 @RunWith(SpringRunner.class)
-@TestPropertySource(value = "classpath:application.yml")
+@SpringBootTest
 public class AnswerControllerIT {
 
 	@ClassRule
