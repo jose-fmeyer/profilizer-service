@@ -22,7 +22,7 @@ public class PersonalityTestController extends AbstractController {
 	@Autowired
 	private PersonalityTestManager personalityTestManager;
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public List<PersonalityTest> getPersonalityTests() {
 		return this.personalityTestManager.getPersonalityTests();
     }
@@ -33,7 +33,7 @@ public class PersonalityTestController extends AbstractController {
 		return this.personalityTestManager.createPersonalityTest(personalityTest);
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT)
+	@RequestMapping(method = RequestMethod.PUT, produces = "application/json")
     public PersonalityTest updatePercentageCompletion(@Valid @RequestBody PersonalityTest personalityTest) {
 		return this.personalityTestManager.updatePersonalityTest(personalityTest);
 	}

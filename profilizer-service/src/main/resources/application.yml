@@ -3,7 +3,7 @@ spring:
     mongodb:
      host: localhost
      port: 27017
-     database: profilize
+     database: profilizer
      username: admin
      password: admin
 server:

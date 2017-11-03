@@ -11,7 +11,7 @@ public class ITSetupRule implements TestRule {
 	
 	private static final String DEFAULT_SERVER_PORT = "8080";
 	private static final String DEFAULT_SERVER_HOST = "http://localhost";
-	private static final String DEFAULT_SERVICE_BASE_PATH = "";
+	private static final String DEFAULT_SERVICE_BASE_PATH = "/profilizer/api";
 	
 	private static final String SERVER_PORT_PARAMETER = "server.port";
 	private static final String SERVER_HOST_PARAMETER = "server.host";
