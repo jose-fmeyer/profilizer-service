@@ -18,7 +18,7 @@ The idea is to give a quiz experience to the user, going throghout different que
   
 First just execute the command to generate the docker application container
 
-  - mvn clean package docker:build
+  - mvn clean package docker:build -DskipTests=true
 
 And next to make the server goes live just execute:
 
